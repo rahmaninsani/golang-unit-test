@@ -70,7 +70,7 @@ func TestMain(m *testing.M) {
 	fmt.Println("AFTER UNIT TEST")
 }
 
-func TestSubTest(t *testing.T) {
+func TestSub(t *testing.T) {
 	t.Run("Alice", func(t *testing.T) {
 		result := HelloWorld("Alice")
 		errorMessage := fmt.Sprintf("Expected 'Hello Alice', but got '%s'", result)
@@ -84,7 +84,7 @@ func TestSubTest(t *testing.T) {
 	})
 }
 
-func TestTableHelloWorld(t *testing.T) {
+func TestTable(t *testing.T) {
 	tests := []struct {
 		name     string
 		request  string
@@ -118,7 +118,7 @@ func BenchmarkHelloWorldBob(b *testing.B) {
 	}
 }
 
-func BenchmarkHelloWorldSub(b *testing.B) {
+func BenchmarkSub(b *testing.B) {
 	b.Run("Alice", func(b *testing.B) {
 		for i := 0; i < b.N; i++ {
 			HelloWorld("Alice")
@@ -130,4 +130,25 @@ func BenchmarkHelloWorldSub(b *testing.B) {
 			HelloWorld("Bob")
 		}
 	})
+}
+
+func BenchmarkTable(b *testing.B) {
+	benchmarks := []struct {
+		name    string
+		request string
+	}{
+		{name: "Alice", request: "Alice"},
+		{name: "Bob", request: "Bob"},
+		{name: "Charlie", request: "Charlie"},
+		{name: "David", request: "David"},
+		{name: "Eve", request: "Eve"},
+	}
+
+	for _, benchmark := range benchmarks {
+		b.Run(benchmark.name, func(b *testing.B) {
+			for i := 0; i < b.N; i++ {
+				HelloWorld(benchmark.request)
+			}
+		})
+	}
 }
