@@ -30,7 +30,7 @@ func TestHelloWorldAlice(t *testing.T) {
 
 	if result != "Hello Alice" {
 		// error
-		// t.Fail() // continue execute below code
+		// t.Fail() == t.Error() // continue execute below code
 		t.Error("Expected Hello Alice, but got", result)
 	}
 
@@ -42,7 +42,7 @@ func TestHelloWorldBob(t *testing.T) {
 
 	if result != "Hello Bob" {
 		// error
-		// t.FailNow() // stop immediately
+		// t.FailNow() == t.Fatal() // stop immediately
 		t.Fatal("Expected Hello Bob, but got", result)
 	}
 
@@ -82,4 +82,26 @@ func TestSubTest(t *testing.T) {
 		errorMessage := fmt.Sprintf("Expected 'Hello Bob', but got '%s'", result)
 		require.Equal(t, "Hello Bob", result, errorMessage)
 	})
+}
+
+func TestTableHelloWorld(t *testing.T) {
+	tests := []struct {
+		name     string
+		request  string
+		expected string
+	}{
+		{name: "Alice", request: "Alice", expected: "Hello Alice"},
+		{name: "Bob", request: "Bob", expected: "Hello Bob"},
+		{name: "Charlie", request: "Charlie", expected: "Hello Charlie"},
+		{name: "David", request: "David", expected: "Hello David"},
+		{name: "Eve", request: "Eve", expected: "Hello Eve"},
+	}
+
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			result := HelloWorld(test.request)
+			errorMessage := fmt.Sprintf("Expected '%s', but got '%s'", test.expected, result)
+			require.Equal(t, test.expected, result, errorMessage)
+		})
+	}
 }
