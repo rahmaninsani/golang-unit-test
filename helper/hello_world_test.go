@@ -105,3 +105,15 @@ func TestTableHelloWorld(t *testing.T) {
 		})
 	}
 }
+
+func BenchmarkHelloWorldAlice(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		HelloWorld("Alice")
+	}
+}
+
+func BenchmarkHelloWorldBob(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		HelloWorld("Bob")
+	}
+}
