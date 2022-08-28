@@ -69,3 +69,17 @@ func TestMain(m *testing.M) {
 	// After
 	fmt.Println("AFTER UNIT TEST")
 }
+
+func TestSubTest(t *testing.T) {
+	t.Run("Alice", func(t *testing.T) {
+		result := HelloWorld("Alice")
+		errorMessage := fmt.Sprintf("Expected 'Hello Alice', but got '%s'", result)
+		require.Equal(t, "Hello Alice", result, errorMessage)
+	})
+
+	t.Run("Bob", func(t *testing.T) {
+		result := HelloWorld("Bob")
+		errorMessage := fmt.Sprintf("Expected 'Hello Bob', but got '%s'", result)
+		require.Equal(t, "Hello Bob", result, errorMessage)
+	})
+}
