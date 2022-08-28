@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"runtime"
 	"testing"
 )
 
@@ -46,4 +47,15 @@ func TestHelloWorldBob(t *testing.T) {
 	}
 
 	fmt.Println("TestHelloWorldBob Done")
+}
+
+func TestSkip(t *testing.T) {
+	if runtime.GOOS == "darwin" {
+		t.Skip("Skip test on darwin/macOS")
+	}
+
+	result := HelloWorld("Charlie")
+	errorMessage := fmt.Sprintf("Expected 'Hello Charlie', but got '%s'", result)
+	require.Equal(t, "Hello Charlie", result, errorMessage)
+	fmt.Println("TestHelloWorldRequire Done")
 }
