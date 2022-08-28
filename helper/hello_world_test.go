@@ -59,3 +59,13 @@ func TestSkip(t *testing.T) {
 	require.Equal(t, "Hello Charlie", result, errorMessage)
 	fmt.Println("TestHelloWorldRequire Done")
 }
+
+func TestMain(m *testing.M) {
+	// Before -> e.g: connect to database
+	fmt.Println("BEFORE UNIT TEST")
+
+	m.Run()
+
+	// After
+	fmt.Println("AFTER UNIT TEST")
+}
